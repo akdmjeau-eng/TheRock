@@ -1,0 +1,16 @@
+- name: Generate GitHub App token
+  uses: actions/create-github-app-token@v1
+  id: app-token
+  with:
+    client-id: ${{ vars.ROCM_SYSTEMS_APP_ID }}           # or secrets.
+    private-key: ${{ secrets.ROCM_SYSTEMS_APP_PRIVATE_KEY }}
+    
+    # Explicitly limit permissions (highly recommended)
+    permission-contents: write
+    permission-pull-requests: write
+    permission-issues: write
+    # permission-metadata: read     # usually implicit
+    
+    # Optional: restrict to specific repos
+    # owner: ROCm
+    # repositories: rocm-systems, another-repo
