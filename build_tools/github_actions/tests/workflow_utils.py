@@ -129,12 +129,21 @@ def get_choice_options(workflow: dict, input_name: str) -> list | None:
     Returns None if the input doesn't exist or isn't type: choice.
     Also handles edge case where options is a dict (invalid YAML) by converting keys to list.
     """
-    input_def = _get_dispatch_inputs(workflow).get(input_name)
+    inputs = _get_dispatch_inputs(workflow)
+    if not inputs or input_name not in inputs:
+        return None
+    
+    input_def = inputs[input_name]
     if not isinstance(input_def, dict):
         return None
     if input_def.get("type") != "choice":
         return None
+    
     options = input_def.get("options")
+    
+    # Handle None case
+    if options is None:
+        return None
     
     # Handle the case where options is a list (normal case)
     if isinstance(options, list):
@@ -145,4 +154,5 @@ def get_choice_options(workflow: dict, input_name: str) -> list | None:
     if isinstance(options, dict):
         return sorted(options.keys())
     
+    # For any other type, return None
     return None
