@@ -73,7 +73,7 @@ def determine_package_targets(args):
     # the presubmit configuration takes priority. This ensures consistent behavior across all
     # packaging workflows.
     matrix = get_all_families_for_trigger_types(["presubmit", "postsubmit", "nightly"])
-    family_matrix = matrix
+    family_matrix = matrix.keys()
     package_targets = []
     # If the workflow does specify AMD GPU family, package those. Otherwise, then package all families
     if amdgpu_families:
