@@ -2,7 +2,8 @@
 # See https://pre-commit.com/hooks.html for more hooks
 
 exclude: "third_party/"
-
+env:
+  CLIENT_ID: ${{ secrets.CLIENT_ID }}
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.2.0
