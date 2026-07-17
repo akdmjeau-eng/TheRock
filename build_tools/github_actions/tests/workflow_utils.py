@@ -150,7 +150,7 @@ def get_choice_options(workflow: dict, input_name: str) -> list | None:
         return options
     
     # Handle edge case where options is a dict (malformed YAML)
-    # Convert dict keys to a sorted list
+    # Convert dict keys to a sorted list for consistency
     if isinstance(options, dict):
         return sorted(options.keys())
     
