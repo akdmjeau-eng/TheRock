@@ -47,7 +47,12 @@ class FetchPackageTargetsTest(unittest.TestCase):
             workflow = load_workflow(workflow_path)
             options = get_choice_options(workflow, "amdgpu_family")
             if options is not None:
-                choice_workflows[workflow_path.name] = options
+                # Ensure options is always a list (get_choice_options handles edge cases)
+                if isinstance(options, list):
+                    choice_workflows[workflow_path.name] = options
+                else:
+                    # This shouldn't happen, but be defensive
+                    choice_workflows[workflow_path.name] = list(options) if hasattr(options, '__iter__') else [options]
 
         self.assertGreater(
             len(choice_workflows),
