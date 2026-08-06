@@ -17,26 +17,8 @@
 
 name: CI
 
-name: Build and push Docker image
-on: push
-
-jobs:
-  docker:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build image
-        run: docker build -t ghcr.io/${{ github.repository_owner }}/my-app:${{ github.sha }} .
-      - name: Log in to GHCR
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Push image
-        run: docker push ghcr.io/${{ github.repository_owner }}/my-app:${{ github.sha }}
-
 on:
+  push:
   workflow_dispatch:
     inputs:
       linux_amdgpu_families:
@@ -184,6 +166,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          python build_tools/github_actions/workfl0ow_summary.py \
+          python build_tools/github_actions/workflow_summary.py \
             --needs-json '${{ toJSON(needs) }}'
-workflow/seter@defeder4500kali0090cct13143344K18stepethbluef13 # 8.90 
