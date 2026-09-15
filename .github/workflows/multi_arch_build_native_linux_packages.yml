@@ -65,13 +65,13 @@ jobs:
       RELEASE_TYPE: ${{ inputs.release_type }}
     steps:
       - name: Checking out repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: ${{ inputs.repository || github.repository }}
           ref: ${{ inputs.ref || '' }}
 
       - name: Set up Python
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.12'
 
@@ -141,7 +141,7 @@ jobs:
         # Only assume OIDC role for authorized repositories (ROCm/TheRock, ROCm/rockrel).
         # Allowing both CI builds (TheRock) and release builds (rockrel) to upload packages.
         if: ${{ (github.repository == 'ROCm/TheRock' || github.repository == 'ROCm/rockrel') && !github.event.pull_request.head.repo.fork }}
-        uses: aws-actions/configure-aws-credentials@d979d5b3a71173a29b74b5b88418bfda9437d885 # v6.1.1
+        uses: aws-actions/configure-aws-credentials@cbe3b392738ccf3f987d68400dafcf4b0624a56c # v6.2.4
         with:
           aws-region: us-east-2
           role-to-assume: ${{ steps.iam_role.outputs.iam_role }}
